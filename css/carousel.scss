@@ -1,9 +1,17 @@
+@import './color.scss';
+
 .carousel {
   height: 100%;
 }
 
 .carousel-caption {
+  background-color: $background-color;
+  left: 0;
+  color: white;
+  width: 100%;
   z-index: 10;
+  margin-bottom: 10px;
+  font-size: 2rem;
 }
 
 .slide {
@@ -24,15 +32,13 @@
       width: 100%;
       height: 100% !important;
       object-fit: cover;
-      object-position: bottom;
+      object-position: center;
     }
   }
 }
 
 @media (min-width: 768px) {
-  .carousel-caption p {
-    margin-bottom: 20px;
-    font-size: 21px;
-    line-height: 1.4;
+  .carousel-caption {
+    font-size: 5rem;
   }
 }

@@ -6,11 +6,45 @@ import Instafeed from 'instafeed.js'
 import request from 'request'
 import spectragram from 'spectragram'
 
-$(document).ready(() => {
-  // $('#start').click(() => {
-  //   window.location.replace(`https://api.instagram.com/oauth/authorize/?client_id=${clientId}&redirect_uri=http://localhost:8080&response_type=token&scope=public_content`)
-  // })
+const accesToken = '37436257.a40f35c.33b6ac7f56894c7aba12d4e1732563f1'
+const clientId = 'a40f35c0b7724f85a2ac92818821ccc6'
 
+$(document).ready(() => {
+  $('#fetchHashTag').click(() => {
+    const hashtag = $('#hashtag').val()
+    if(hashtag && hashtag !== '') {
+      window.location.replace(`https://api.instagram.com/oauth/authorize/?client_id=${clientId}&redirect_uri=http://localhost:8080?hashtag=${hashtag}&response_type=token&scope=public_content`)
+    }
+  })
+
+  var Spectra = {
+    instaToken: accesToken,
+    instaID: clientId,
+    init: function () {
+      $.fn.spectragram.accessData = {
+        accessToken: this.instaToken,
+        clientID: this.instaID
+      };
+    }
+  }
+  Spectra.init();
+
+  const { hashtag } = QueryString
+  if (hashtag) {
+    $('.feed-container').spectragram('getRecentTagged',{
+      query: hashtag,
+      wrapEachWith: '<div class="item">',
+      size: 'big',
+      complete: (data) => {
+        $('#myCarousel').addClass('carousel')
+        $('.item').first().addClass('active')
+        $('.item').each((index, element) => {
+          const imageTitle = $(element).find('img').attr('alt')
+          jQuery(element).append(`<div class="carousel-caption">${imageTitle}</div>`)
+        })
+      },
+    })
+  }
 })
 
 var QueryString = function () {
@@ -35,30 +69,3 @@ var QueryString = function () {
   }
   return query_string;
 }();
-
-const accesToken = '37436257.a40f35c.33b6ac7f56894c7aba12d4e1732563f1'
-const clientId = 'a40f35c0b7724f85a2ac92818821ccc6'
-
-var Spectra = {
-  instaToken: accesToken,
-  instaID: clientId,
-
-  init: function () {
-    $.fn.spectragram.accessData = {
-      accessToken: this.instaToken,
-      clientID: this.instaID
-    };
-
-    $('.feed-container').spectragram('getRecentTagged',{
-      query: 'gili',
-      wrapEachWith: '<div class="item">',
-      size: 'big',
-      complete: (data) => {
-        $('#myCarousel').addClass('carousel')
-        $('.item').first().addClass('active')
-      },
-    })
-  }
-}
-
-Spectra.init();

@@ -8,4 +8,13 @@ html, body {
   top: 0;
   margin-top: 0;
   height: 100%;
+  background-color: $background-color;
+}
+
+.image-caption-container {
+  z-index: 99;
+  height: 200px;
+  background: $background-color;
+  color: white;
+  font-size: 20px;
 }
