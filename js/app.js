@@ -6,13 +6,16 @@ import Instafeed from 'instafeed.js'
 import request from 'request'
 import spectragram from 'spectragram'
 
-
+let accesToken = '37436257.a40f35c.33b6ac7f56894c7aba12d4e1732563f1'
+const clientId = 'a40f35c0b7724f85a2ac92818821ccc6'
 
 $(document).ready(() => {
   $('#fetchHashTag').click(() => {
     const hashtag = $('#hashtag').val()
     if(hashtag && hashtag !== '') {
-      window.location.replace(`https://api.instagram.com/oauth/authorize/?client_id=${clientId}&redirect_uri=http://localhost:8080?hashtag=${hashtag}&response_type=token&scope=public_content`)
+      window.location.replace(`https://api.instagram.com/oauth/authorize/?client_id=${clientId}&redirect_uri=http://localhost:8080&response_type=token&scope=public_content`)
+      accesToken = QueryString.access_token
+      window.location.replace(`http://localhost:8080?hashtag=${hashtag}`)
     }
   })
 
