@@ -6,8 +6,7 @@ import Instafeed from 'instafeed.js'
 import request from 'request'
 import spectragram from 'spectragram'
 
-const accesToken = '37436257.a40f35c.33b6ac7f56894c7aba12d4e1732563f1'
-const clientId = 'a40f35c0b7724f85a2ac92818821ccc6'
+
 
 $(document).ready(() => {
   $('#fetchHashTag').click(() => {
